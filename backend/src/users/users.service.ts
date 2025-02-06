@@ -16,7 +16,7 @@ export class UsersService {
     }
 
     async createUser(username: string, password: string, role = 'user'): Promise<User> {
-        // Encriptar la clave
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
 

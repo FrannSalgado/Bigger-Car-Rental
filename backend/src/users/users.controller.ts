@@ -1,6 +1,9 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -13,4 +16,11 @@ export class UsersController {
         const { username, password, role } = body;
         return this.usersService.createUser(username, password, role);
     }
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('user', 'admin')
+    @Get('profile')
+    getProfile(@Request() req) {
+        return req.user;
+    }
 }
+
