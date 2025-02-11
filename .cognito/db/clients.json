@@ -1,0 +1,16 @@
+{
+  "Clients": {
+    "ceu3nxg4lr4yi5vv0n3dhh1if": {
+      "ClientId": "ceu3nxg4lr4yi5vv0n3dhh1if",
+      "ClientName": "local_client",
+      "CreationDate": "2025-02-10T20:09:26.087Z",
+      "LastModifiedDate": "2025-02-10T20:09:26.087Z",
+      "TokenValidityUnits": {
+        "AccessToken": "hours",
+        "IdToken": "minutes",
+        "RefreshToken": "days"
+      },
+      "UserPoolId": "local_3UJ2NSKH"
+    }
+  }
+}
