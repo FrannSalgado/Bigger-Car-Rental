@@ -7,6 +7,7 @@ export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector) {}
 
     canActivate(context: ExecutionContext): boolean {
+
         const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
@@ -14,11 +15,11 @@ export class RolesGuard implements CanActivate {
         if (!requiredRoles) {
             return true;
         }
+        const request = context.switchToHttp().getRequest();
+        const user = request.user;  // <-- Extraemos
+        //const { user } = context.switchToHttp().getRequest();
 
-        const { user } = context.switchToHttp().getRequest();
-
-
-        if (!requiredRoles.some((role) => user.role === role)) {
+        if (!user || !user.role || !requiredRoles.includes(user.role)) {
             throw new ForbiddenException('You don`t have Permission to access this route');
         }
 

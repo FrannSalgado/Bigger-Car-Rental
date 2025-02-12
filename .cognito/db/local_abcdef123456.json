@@ -1,28 +1,5 @@
 {
-  "Users": {
-    "testuser": {
-      "Attributes": [
-        {
-          "Name": "sub",
-          "Value": "e14904ad-ba2b-4099-bce5-b08d1b12d08b"
-        },
-        {
-          "Name": "email",
-          "Value": "testuser@example.com"
-        }
-      ],
-      "Enabled": true,
-      "Password": "Password123!",
-      "RefreshTokens": [
-        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2duaXRvOnVzZXJuYW1lIjoidGVzdHVzZXIiLCJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzM5MjE5MTc5LCJqdGkiOiJlNjc5ZjZkZC01M2UxLTRkYjItYWNlYi1lMTcxMjNlYzYwYjEiLCJleHAiOjE3Mzk4MjM5NzksImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTIyOS9sb2NhbF8zVUoyTlNLSCJ9.xNhjz2zbyuy6hlixXThA56BldJo2hA6PpbktFYIknczLvjTlUEdIh3JKwKka8nVM33OFXnOHufgo3dVClEvLa6zVPqy8F_Gph0EbCbrBW5FJTAxnoI7L78X7Ber3Z5lXL157pGMGs6MXI_uYWs55VsHaOyodXgauau75uWvDuDev_UC8kG88DcxCy-a5jkg4WxIMoCkqM1S-3L7eFm2r63bTRU891ZT6rB9xlws7J2k0HiJhnpP29MY2GC5VOqVbb2qCPpEcAEgl2okDBdd2CcCXNid6mg7tkLzyMv0-9B-lCdriJu0L-KCwILH0h4opQ6v_qZlbVjgljVX8A_IeRQ"
-      ],
-      "UserCreateDate": "2025-02-10T20:20:10.829Z",
-      "UserLastModifiedDate": "2025-02-10T20:24:30.985Z",
-      "Username": "testuser",
-      "UserStatus": "CONFIRMED",
-      "ConfirmationCode": "385194"
-    }
-  },
+  "Users": {},
   "Options": {
     "Policies": {
       "PasswordPolicy": {
@@ -263,10 +240,6 @@
     "UsernameAttributes": [
       "email"
     ],
-    "Arn": "arn:aws:cognito-idp:local:local:userpool/local_3UJ2NSKH",
-    "CreationDate": "2025-02-10T20:05:01.300Z",
-    "Id": "local_3UJ2NSKH",
-    "LastModifiedDate": "2025-02-10T20:05:01.300Z",
-    "Name": "local_user_pool"
+    "Id": "local_abcdef123456"
   }
 }

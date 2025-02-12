@@ -8,6 +8,8 @@ import { Roles } from '../auth/roles.decorator';
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
+    @UseGuards(JwtAuthGuard, RolesGuard)
+
 
     @Post('register')
     async registerUser(
@@ -21,6 +23,13 @@ export class UsersController {
     @Get('profile')
     getProfile(@Request() req) {
         return req.user;
+    }
+
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('admin')
+    @Get('admin-route')
+    adminRoute(@Request() req) {
+        return { message: 'Bienvenido, admin!', user: req.user };
     }
 }
 

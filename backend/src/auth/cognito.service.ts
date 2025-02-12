@@ -4,6 +4,8 @@ import {
     SignUpCommand,
     InitiateAuthCommand,
     ForgotPasswordCommand,
+    AdminAddUserToGroupCommand,
+    AdminConfirmSignUpCommand,
 } from '@aws-sdk/client-cognito-identity-provider';
 import { ConfigService } from '@nestjs/config';
 
@@ -28,16 +30,31 @@ export class CognitoService {
         });
     }
 
-    async signUp(username: string, password: string, email: string) {
+    async signUp(username: string, password: string, email: string, role: string) {
         const command = new SignUpCommand({
             ClientId: this.clientId,
             Username: username,
             Password: password,
-            UserAttributes: [{ Name: 'email', Value: email }],
+            UserAttributes: [{ Name: 'email', Value: email },
+                            { Name: 'email_verified', Value: 'true' }
+            ],
         });
 
         try {
-            return await this.client.send(command);
+            const response =  await this.client.send(command);
+            const confirmCommand = new AdminConfirmSignUpCommand({
+                UserPoolId: this.userPoolId,
+                Username: username,
+            });
+            await this.client.send(confirmCommand);
+            const addToGroupCommand = new AdminAddUserToGroupCommand({
+                UserPoolId: this.userPoolId,
+                Username: username,
+                GroupName: 'user',
+            });
+            await this.client.send(addToGroupCommand);
+
+            return response
         } catch (error) {
             throw new Error(`Register Error: ${error.message}`);
         }
@@ -47,6 +64,7 @@ export class CognitoService {
         const command = new InitiateAuthCommand({
             AuthFlow: 'USER_PASSWORD_AUTH',
             ClientId: this.clientId,
+
             AuthParameters: {
                 USERNAME: username,
                 PASSWORD: password,
