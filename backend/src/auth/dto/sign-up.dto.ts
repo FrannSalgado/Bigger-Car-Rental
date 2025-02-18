@@ -1,5 +1,5 @@
 import {IsEmail, IsNotEmpty, Matches, MaxLength, MinLength} from 'class-validator';
-import { IUser } from '../../users/interfaz/user.interfaz';
+import { IUser } from '../../users/interface/user.interface';
 
 export class SignUpDto implements Omit <IUser,"id">{
     @IsNotEmpty()

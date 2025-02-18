@@ -5,12 +5,13 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { User } from './user.entity';
 import {JwtModule} from "@nestjs/jwt";
+import {UserRepository} from "./repository/user.repository";
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]),  JwtModule.register({
     secret: process.env.JWT_SECRET,
   }),],
-  providers: [UsersService],
+  providers: [UsersService, UserRepository],
   controllers: [UsersController],
   exports: [UsersService],
 })
