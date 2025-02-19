@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.744.0",
+    "@nestjs/bull": "^11.0.2",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.1",
@@ -30,6 +31,7 @@
     "@nestjs/typeorm": "^11.0.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "bull": "^4.16.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "jsonwebtoken": "^9.0.2",
