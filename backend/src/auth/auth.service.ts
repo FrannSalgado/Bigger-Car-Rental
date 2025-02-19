@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import {CognitoService} from "./cognito.service";
 import {SignUpDto} from "./dto/sign-up.dto";
 import {CreateUserDto} from "../users/dto/create-user.dto";
+import {SignInDto} from "./dto/sign-in.dto";
 
 
 @Injectable()
@@ -27,6 +28,10 @@ export class AuthService {
         return ;
     }
 
+    async signIn({username, password} : SignInDto){
+        return await this.cognitoService.signIn({username,password})
+
+    }
 
 
 }
