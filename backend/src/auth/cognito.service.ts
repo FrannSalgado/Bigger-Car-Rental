@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {
     CognitoIdentityProviderClient,
     SignUpCommand,
@@ -6,8 +6,10 @@ import {
     ForgotPasswordCommand,
     AdminAddUserToGroupCommand,
     AdminConfirmSignUpCommand,
+
 } from '@aws-sdk/client-cognito-identity-provider';
 import { ConfigService } from '@nestjs/config';
+import {SignInDto} from "./dto/sign-in.dto";
 
 @Injectable()
 export class CognitoService {
@@ -28,20 +30,21 @@ export class CognitoService {
             region: this.configService.get<string>('AWS_REGION') ?? 'us-east-1',
             endpoint: this.configService.get<string>('AWS_COGNITO_ENDPOINT'),
         });
+
     }
 
-    async signUp(username: string, password: string, email: string, role: string) {
+    async signUp(username: string, password: string, email: string) {
         const command = new SignUpCommand({
             ClientId: this.clientId,
             Username: username,
             Password: password,
-            UserAttributes: [{ Name: 'email', Value: email },
-                            { Name: 'email_verified', Value: 'true' }
+            UserAttributes: [{Name: 'email', Value: email},
+                {Name: 'email_verified', Value: 'true'}
             ],
         });
 
         try {
-            const response =  await this.client.send(command);
+            const response = await this.client.send(command);
             const confirmCommand = new AdminConfirmSignUpCommand({
                 UserPoolId: this.userPoolId,
                 Username: username,
@@ -56,11 +59,12 @@ export class CognitoService {
 
             return response
         } catch (error) {
-            throw new Error(`Register Error: ${error.message}`);
+            throw new NotFoundException(`Register Error: ${error.message}`);
+
         }
     }
 
-    async signIn(username: string, password: string) {
+    async signIn({username, password}: SignInDto) {
         const command = new InitiateAuthCommand({
             AuthFlow: 'USER_PASSWORD_AUTH',
             ClientId: this.clientId,
@@ -73,7 +77,7 @@ export class CognitoService {
 
         try {
             const response = await this.client.send(command);
-            return { accessToken: response.AuthenticationResult?.AccessToken };
+            return {accessToken: response.AuthenticationResult?.AccessToken};
         } catch (error) {
             throw new Error(`SingIn Error: ${error.message}`);
         }
@@ -91,4 +95,5 @@ export class CognitoService {
             throw new Error(`Error to Recover Password: ${error.message}`);
         }
     }
+
 }
