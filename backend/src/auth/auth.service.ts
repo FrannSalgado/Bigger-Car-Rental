@@ -5,6 +5,10 @@ import {CognitoService} from "./cognito.service";
 import {SignUpDto} from "./dto/sign-up.dto";
 import {CreateUserDto} from "../users/dto/create-user.dto";
 import {SignInDto} from "./dto/sign-in.dto";
+import {InjectQueue} from "@nestjs/bull";
+import { Queue } from 'bull';
+import { JwtTokenService } from './jwt-token.service';
+
 
 
 @Injectable()
@@ -13,6 +17,8 @@ export class AuthService {
         private usersService: UsersService,
         private jwtService: JwtService,
         private cognitoService : CognitoService,
+        private jwtTokenService: JwtTokenService,
+        @InjectQueue('emailQueue') private readonly emailQueue: Queue,
 
     ) {}
 
@@ -33,5 +39,14 @@ export class AuthService {
 
     }
 
+    async forgotPassword(email: string) {
+        const user = await this.usersService.searchByEmail(email);
+        if (!user) {
+            return { message: 'If the email is valid, you will receive an email with instructions.' };
+        }
+        const resetToken = this.jwtTokenService.generateResetToken(user.email);
+        await this.emailQueue.add('sendEmail', { email, resetToken });
+        return { message: 'If the email is valid, you will receive an email with instructions.' };
+    }
 
 }
