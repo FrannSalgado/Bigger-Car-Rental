@@ -10,7 +10,12 @@ export class UsersService {
         private usersRepository: UserRepository,
     ) {}
 
-
+    async searchByUsername(username: string) {
+        return this.usersRepository.findByUsername( username);
+    }
+    async searchByEmail(email: string) {
+        return this.usersRepository.findByEmail( email);
+    }
     async  existingUser (findByQueryDto:FindByQueryDto  ){
         if (await this.usersRepository.findByQuery( findByQueryDto )){
             throw new ConflictException('The username or email already exists');
