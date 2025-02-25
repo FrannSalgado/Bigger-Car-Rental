@@ -1,27 +1,27 @@
-import {Controller, Post, Body, UseGuards, Get, Request} from '@nestjs/common';
-import { CognitoService } from './cognito.service';
-import {JwtAuthGuard} from "./jwt-auth.guard";
-import {RolesGuard} from "./roles.guard";
-import {Roles} from "./roles.decorator";
+import {Controller, Post, Body, UsePipes, ValidationPipe} from '@nestjs/common';
+
+import {AuthService} from "./auth.service";
+import {SignUpDto} from "./dto/sign-up.dto";
+import {SignInDto} from "./dto/sign-in.dto";
+import {EmailDto} from "../email/dto/email.dto";
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly cognitoService: CognitoService) {}
+    constructor(private readonly authService: AuthService) {}
 
     @Post('register')
-    async register(@Body() body: { username: string; password: string; email: string, role: string }) {
-        return this.cognitoService.signUp(body.username, body.password, body.email, body.role);
+    async register(@Body() createSignUpDto: SignUpDto) {
+        return this.authService.register(createSignUpDto);
     }
 
     @Post('login')
-    async login(@Body() body: { username: string; password: string }) {
-        return this.cognitoService.signIn(body.username, body.password);
+    async login(@Body() createSignInDto :SignInDto) {
+        return this.authService.signIn( createSignInDto);
     }
 
     @Post('forgot-password')
-    async forgotPassword(@Body() body: { username: string }) {
-        return this.cognitoService.forgotPassword(body.username);
+    @UsePipes(new ValidationPipe({ whitelist: true }))
+    async forgotPassword(@Body() emailDto: EmailDto) {
+        return this.authService.forgotPassword(emailDto.email);
     }
-
-
 }

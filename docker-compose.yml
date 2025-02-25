@@ -17,3 +17,10 @@ services:
       - 9229:9229
     volumes:
       - .cognito:/app/.cognito
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"

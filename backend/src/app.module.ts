@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule} from "@nestjs/jwt";
+import {BullModule} from "@nestjs/bull";
+import {EmailModule} from "./email/email.module";
 
 @Module({
   imports: [
@@ -29,6 +31,14 @@ import { JwtModule} from "@nestjs/jwt";
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     }),
+
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    EmailModule,
     UsersModule,
     AuthModule,
   ],
