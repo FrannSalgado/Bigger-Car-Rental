@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { EmailProcessor } from './email.processor';//
+import { EmailProcessor } from './email.processor';
 import { EmailService } from './email.service';
 import * as nodemailer from 'nodemailer';
 
