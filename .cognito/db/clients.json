@@ -1,0 +1,39 @@
+{
+  "Clients": {
+    "ceu3nxg4lr4yi5vv0n3dhh1if": {
+      "ClientId": "ceu3nxg4lr4yi5vv0n3dhh1if",
+      "ClientName": "local_client",
+      "CreationDate": "2025-02-10T20:09:26.087Z",
+      "LastModifiedDate": "2025-02-10T20:09:26.087Z",
+      "TokenValidityUnits": {
+        "AccessToken": "hours",
+        "IdToken": "minutes",
+        "RefreshToken": "days"
+      },
+      "UserPoolId": "local_3UJ2NSKH"
+    },
+    "9rrgor3tznvh8ft39but8lib1": {
+      "AccessTokenValidity": 3600,
+      "ClientId": "9rrgor3tznvh8ft39but8lib1",
+      "ClientName": "local_client",
+      "CreationDate": "2025-02-11T23:11:36.985Z",
+      "EnableTokenRevocation": true,
+      "ExplicitAuthFlows": [
+        "ALLOW_USER_PASSWORD_AUTH",
+        "ALLOW_REFRESH_TOKEN_AUTH"
+      ],
+      "IdTokenValidity": 3600,
+      "LastModifiedDate": "2025-02-11T23:11:36.985Z",
+      "RefreshTokenValidity": 86400,
+      "SupportedIdentityProviders": [
+        "COGNITO"
+      ],
+      "TokenValidityUnits": {
+        "AccessToken": "hours",
+        "IdToken": "minutes",
+        "RefreshToken": "days"
+      },
+      "UserPoolId": "local_03gsobfT"
+    }
+  }
+}
