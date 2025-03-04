@@ -26,7 +26,6 @@ async function createTestAccount() {
     MailerModule.forRootAsync({
       useFactory: async () => ({
         transport: await createTestAccount(),
-
       }),
     }),
   ],
